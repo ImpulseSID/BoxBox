@@ -13,10 +13,60 @@ output_dir = os.path.join(root_dir, 'speed_trace')
 fastf1.Cache.enable_cache(cache_dir)
 os.makedirs(output_dir, exist_ok=True)
 
-def main():
-    year = 2024
-    race = 'Australia'
-    session_type = 'R'
+
+# List Races
+def select_race(year):
+    schedule = fastf1.get_event_schedule(year)
+    races = schedule["EventName"].tolist()
+
+    print(f"\nAvailable races for {year}:\n")
+    for i, race in enumerate(races, start=1):
+        print(f"{i:2d}. {race}")
+
+    while True:
+        try:
+            choice = int(input("\nSelect race number: "))
+            if 1 <= choice <= len(races):
+                return races[choice - 1]
+        except ValueError:
+            pass
+        print("Invalid choice. Please enter a valid number.")
+
+
+# Session Selector
+def select_session(year, race):
+    schedule = fastf1.get_event_schedule(year)
+    event = schedule[schedule["EventName"] == race].iloc[0]
+
+    # Collect available sessions in order
+    session_cols = ["Session1", "Session2", "Session3", "Session4", "Session5"]
+    available_sessions = []
+
+    for col in session_cols:
+        session = event[col]
+        if pd.notna(session):
+            available_sessions.append(session)
+
+    print("\nAvailable sessions:")
+    for i, s in enumerate(available_sessions, start=1):
+        print(f"{i}. {s}")
+
+    while True:
+        try:
+            choice = int(input("\nSelect session number: "))
+            if 1 <= choice <= len(available_sessions):
+                return available_sessions[choice - 1]
+        except ValueError:
+            pass
+        print("Invalid choice. Please select a valid session.")
+
+
+
+def main(year, race, session_type):
+
+    #year = 2024
+    #race = 'Australia'
+    #session_type = 'R'
 
     print(f"Loading {year} {race}...")
     session = fastf1.get_session(year, race, session_type)
@@ -142,4 +192,8 @@ def main():
     fig.write_html(output_path, auto_open=True)
 
 if __name__ == "__main__":
-    main()
+    year = int(input("Enter season year (e.g. 2024): "))
+    race = select_race(year)
+    session_type = select_session(year, race)
+
+    main(year, race, session_type)
