@@ -1,19 +1,16 @@
 import fastf1
 
-
-# 1. Point to your specific cache folder
 cache_dir = 'cache'
 fastf1.Cache.enable_cache(cache_dir) 
 
 print("Loading session (using your cached files)...")
-# Note: Use the same session details you used to download
-session = fastf1.get_session(2025, 'Australia', 'Q') 
+
+# User Inputs
+season = int(input("Enter year: "))
+race = input("Enter race name: ")
+session_type = input("Enter session type: ")
+
+session = fastf1.get_session(season, race, session_type)
 session.load()
 
-print("Converting to CSV...")
-
-# This converts the "Timing Data" and "Car Data" you see in your folder
-# into a nice table format.
-session.laps.to_csv('AustralianGP_Quali_Laps.csv', index=False)
-
-print("Success! Open 'AustralianGP_Quali_Laps.csv' in Excel/VS Code.")
+session.laps.to_csv(f'{race}_{session_type}_Laps.csv', index=False)

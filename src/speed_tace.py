@@ -192,7 +192,7 @@ def main(year, race, session_type):
     fig.write_html(output_path, auto_open=True)
 
 if __name__ == "__main__":
-    year = int(input("Enter season year (e.g. 2024): "))
+    year = int(input("Enter season year: "))
     race = select_race(year)
     session_type = select_session(year, race)
 
