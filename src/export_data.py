@@ -3,7 +3,7 @@ import fastf1
 cache_dir = 'cache'
 fastf1.Cache.enable_cache(cache_dir) 
 
-print("Loading session (using your cached files)...")
+print("Loading session ...")
 
 # User Inputs
 season = int(input("Enter year: "))

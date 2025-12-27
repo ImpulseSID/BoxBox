@@ -1,43 +1,63 @@
-**BoxBox — F1 timing & telemetry tool (in development)**
+# BoxBox - F1 Telemetry Analysis
 
-- **Purpose:** Lightweight utilities to parse, export and inspect Formula 1 timing and telemetry datasets stored under the `cache/` folder and render quick telemetry traces in `speed_trace/`.
+**BoxBox** is a Python-based toolkit for analyzing and visualizing Formula 1 telemetry data. Built on top of [FastF1](https://github.com/theOehrly/Fast-F1) and [Plotly](https://plotly.com/python/), it generates interactive, high-resolution HTML charts to analyze driver performance, track dominance, and speed traces.
 
-**Status:** In development — core scripts available in `src/`.
+## Features
 
-**Repository layout**
+- **🏎️ Interactive Speed Traces:** Compare telemetry for every driver across an entire race.
+- **🗺️ Track Dominance Maps:** Visualize exactly where one driver is faster than another in a race Qualifying.
 
-- `cache/` — raw per-event pickled timing & telemetry files (organized by year/event/session).
-- `speed_trace/` — generated telemetry HTML traces (quick visual outputs).
-- `src/` — utility scripts:
-  - `get_data.py` — helpers to load and normalise cached `.ff1pkl` files.
-  - `export_data.py` — export/transform routines for downstream analysis.
-  - `speed_tace.py` — telemetry trace generation .
+- **⚡ Local Caching:** Optimized with FastF1 caching to minimize download times for repeat analyses.
 
-Quick Start
+## Project Structure
 
-1. Ensure Python 3.8+ is installed.
-2. (Recommended) create and activate a virtualenv:
+```text
+BOXBOX/
+├── cache/                 # FastF1 data cache (auto-generated)
+├── dominance_maps/        # Output folder for Dominance Map HTMLs
+├── speed_trace/           # Output folder for Speed Trace HTMLs
+├── src/                   # Source code
+│   ├── dominance_map.py   # Generates Track Dominance Maps
+│   ├── speed_trace.py     # Generates Interactive Speed Traces
+│   ├── get_data.py        # Helper for fetching raw data
+│   └── export_data.py     # Helper for exporting CSVs
+├── .venv/                 # Python Virtual Environment
+└── README.md              # This file
+```
 
-```powershell
+## Installation
+
+- Clone or Open the Project Ensure you are in the root directory BoxBox.
+- Set up Virtual Environment
+
+```
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+
+For Windows:
+.venv\Scripts\activate
+
+For Mac/Linux:
+source .venv/bin/activate
 ```
 
-3. Install dependencies (`requirements.txt` to be added later on).
+# Install Core Dependencies
 
-4. Run the data helpers (examples):
-
-```powershell
-python src\get_data.py    # load or inspect cached files
-python src\export_data.py # export or transform datasets
-python src\speed_tace.py  # generate telemetry traces 
+```
+pip install fastf1 pandas plotly matplotlib
 ```
 
+# Usage
 
-Contributing
+### Track Dominance Map
 
-- Open an issue or create a PR with changes. Prefer small, focused commits and document any required dependency additions.
+* This tool compares the top 2 fastest drivers in a Qualifying session and paints the track map based on who was faster in each 10m mini-sector.
 
-Contact
+### Interactive Speed Trace
 
-- For questions or pairing, leave an issue in this repo.
+* This tool creates a slider-controlled line chart to compare speed vs. distance for all drivers on any lap.
+
+# Configuration
+
+* Cache: The cache is stored in the /cache folder. If you encounter data corruption errors, simply delete this folder, and the scripts will re-download fresh data.
+
+* Chunk Size: You can adjust the resolution of the dominance map by changing chunk_size = 10 in src/dominance_map.py.

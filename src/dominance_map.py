@@ -5,7 +5,7 @@ import pandas as pd
 import os
 
 # SETUP
-fastf1.plotting.setup_mpl(misc_mpl_mods=False)
+fastf1.plotting.setup_mpl()
 script_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(script_dir)
 cache_dir = os.path.join(root_dir, 'cache')
