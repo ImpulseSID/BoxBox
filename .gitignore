@@ -4,3 +4,4 @@ cache/
 .env
 speed_trace/
 dominance_maps/
+race_pace/
