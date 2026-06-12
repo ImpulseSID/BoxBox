@@ -4,10 +4,9 @@
 
 ## Features
 
-- **🏎️ Interactive Speed Traces:** Compare telemetry for every driver across an entire race.
-- **🗺️ Track Dominance Maps:** Visualize exactly where one driver is faster than another in a race Qualifying.
-
-- **⚡ Local Caching:** Optimized with FastF1 caching to minimize download times for repeat analyses.
+- **Interactive Speed Traces:** Compare telemetry for every driver across an entire race.
+- **Track Dominance Maps:** Visualize exactly where one driver is faster than another in a race Qualifying.
+- **Local Caching:** Optimized with FastF1 caching to minimize download times for repeat analyses.
 
 ## Project Structure
 
@@ -50,14 +49,14 @@ pip install fastf1 pandas plotly matplotlib
 
 ### Track Dominance Map
 
-* This tool compares the top 2 fastest drivers in a Qualifying session and paints the track map based on who was faster in each 10m mini-sector.
+- This tool compares the top 2 fastest drivers in a Qualifying session and paints the track map based on who was faster in each 10m mini-sector.
 
 ### Interactive Speed Trace
 
-* This tool creates a slider-controlled line chart to compare speed vs. distance for all drivers on any lap.
+- This tool creates a slider-controlled line chart to compare speed vs. distance for all drivers on any lap.
 
 # Configuration
 
-* Cache: The cache is stored in the /cache folder. If you encounter data corruption errors, simply delete this folder, and the scripts will re-download fresh data.
+- Cache: The cache is stored in the /cache folder. If you encounter data corruption errors, simply delete this folder, and the scripts will re-download fresh data.
 
-* Chunk Size: You can adjust the resolution of the dominance map by changing chunk_size = 10 in src/dominance_map.py.
+- Chunk Size: You can adjust the resolution of the dominance map by changing chunk_size = 10 in src/dominance_map.py.
